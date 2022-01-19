@@ -1,0 +1,30 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Hexlet learning project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx @hexlet/react-todo-app-with-backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derevyankindenis/frontend-testing-react-project-lvl2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derevyankindenis/frontend-testing-react-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/derevyankindenis/frontend-testing-react-project-lvl2#readme",
+  "devDependencies": {
+    "@hexlet/react-todo-app-with-backend": "^0.10.0",
+    "@jest/globals": "^27.3.1",
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "jest": "^27.3.1",
+    "jest-cli": "^27.3.1"
+  }
+}
