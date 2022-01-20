@@ -3,6 +3,9 @@
 plugins:
   # https://github.com/jest-community/eslint-plugin-jest
   - jest
+  - testing-library
+  - jest-dom
+  - react
 
 # https://eslint.org/docs/user-guide/configuring#specifying-environments
 env:
@@ -12,10 +15,14 @@ env:
 extends:
   - 'airbnb-base'
   - 'plugin:jest/recommended'
+  - 'plugin:testing-library/react'
+  - 'plugin:jest-dom/recommended'
 
 parserOptions:
   ecmaVersion: 11
   sourceType: module
+  ecmaFeatures:
+    jsx: true
 
 rules:
   no-console: 0
@@ -24,3 +31,7 @@ rules:
     - ignorePackages
     - js: always
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  react/jsx-uses-vars: 
+    - error
+  react/jsx-uses-react:
+    - error

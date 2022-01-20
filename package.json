@@ -2,29 +2,41 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Hexlet learning project",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx jest --bail",
     "start": "npx @hexlet/react-todo-app-with-backend"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/derevyankindenis/frontend-testing-react-project-lvl2.git"
   },
-  "author": "",
+  "author": "Derevyankin Denis",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/derevyankindenis/frontend-testing-react-project-lvl2/issues"
   },
   "homepage": "https://github.com/derevyankindenis/frontend-testing-react-project-lvl2#readme",
   "devDependencies": {
-    "@hexlet/react-todo-app-with-backend": "^0.10.0",
+    "@babel/core": "^7.16.10",
+    "@babel/preset-env": "^7.16.10",
+    "@babel/preset-react": "^7.16.7",
     "@jest/globals": "^27.3.1",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "babel-jest": "^27.4.6",
     "eslint": "^8.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-jest-dom": "^4.0.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-testing-library": "^5.0.3",
     "jest": "^27.3.1",
     "jest-cli": "^27.3.1"
+  },
+  "dependencies": {
+    "@hexlet/react-todo-app-with-backend": "^0.10.0",
+    "react": "^17.0.2"
   }
 }
