@@ -6,3 +6,6 @@
 
 ### Шаг 2
 [![asciicast](https://asciinema.org/a/0ZbK1pgYGOSMAFTbNyciN1FS7.svg)](https://asciinema.org/a/0ZbK1pgYGOSMAFTbNyciN1FS7)
+
+### Шаг 3
+[![asciicast](https://asciinema.org/a/HBkqeDv9I5mOMsLKrJHjAECbb.svg)](https://asciinema.org/a/HBkqeDv9I5mOMsLKrJHjAECbb)
