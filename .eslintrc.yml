@@ -26,12 +26,10 @@ parserOptions:
 
 rules:
   no-console: 0
-  import/extensions:
-    - error
-    - ignorePackages
-    - js: always
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  import/no-extraneous-dependencies: off
   react/jsx-uses-vars: 
     - error
   react/jsx-uses-react:
     - error
+  no-plusplus: off
