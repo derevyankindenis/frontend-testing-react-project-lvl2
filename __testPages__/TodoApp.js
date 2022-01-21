@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable class-methods-use-this */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {

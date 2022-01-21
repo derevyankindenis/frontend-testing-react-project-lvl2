@@ -31,3 +31,4 @@ rules:
     - error
   react/jsx-uses-react:
     - error
+  testing-library/prefer-screen-queries: off
