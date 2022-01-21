@@ -122,7 +122,7 @@ export default class TodoApp {
     try {
       const task = await screen.findByRole('checkbox', { name });
       return task;
-    } catch (e) {
+    } catch (_) {
       return null;
     }
   }
@@ -131,7 +131,7 @@ export default class TodoApp {
     try {
       const list = await screen.findByRole('button', { name });
       return list;
-    } catch (e) {
+    } catch (_) {
       return null;
     }
   }
