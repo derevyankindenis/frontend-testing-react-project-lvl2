@@ -6,27 +6,26 @@ const lists = {};
 const tasks = {};
 
 const handlers = [
-  rest.post('http://localhost/api/v1/lists', (req, res, ctx) => {
-    console.log('###', 'POST LISTS', req.body);
+  rest.post('/api/v1/lists', (req, res, ctx) => {
     const list = { ...req.body, id: listNewId++, removable: true };
     lists[list.id] = list;
     return res(ctx.status(201), ctx.json(list));
   }),
 
-  rest.get('http://localhost/api/v1/lists', (req, res, ctx) => {
-    console.log('###', 'GET LISTS', req.body);
-    return res(ctx.status(200), ctx.json(Object.values(lists)));
+  rest.get('/api/v1/lists', (req, res, ctx) => res(ctx.status(200), ctx.json(Object.values(lists)))),
+
+  rest.delete('/api/v1/lists/:listId', (req, res, ctx) => {
+    delete lists[req.params.listId];
+    return res(ctx.status(204));
   }),
 
-  rest.get('http://localhost/api/v1/lists/:listId/tasks', (req, res, ctx) => {
-    console.log('###', 'GET TASKS', req.body, req.params.listId);
+  rest.get('/api/v1/lists/:listId/tasks', (req, res, ctx) => {
     const listId = Number(req.params.listId);
     const toRetTasks = Object.values(tasks).filter((task) => task.listId === listId);
     return res(ctx.status(200), ctx.json(toRetTasks));
   }),
 
-  rest.post('http://localhost/api/v1/lists/:listId/tasks', (req, res, ctx) => {
-    console.log('###', 'POST TASKS', req.body, req.params.listId);
+  rest.post('/api/v1/lists/:listId/tasks', (req, res, ctx) => {
     const task = {
       ...req.body,
       listId: Number(req.params.listId),
@@ -38,14 +37,12 @@ const handlers = [
     return res(ctx.status(201), ctx.json(task));
   }),
 
-  rest.delete('http://localhost/api/v1/tasks/:taskId', (req, res, ctx) => {
-    console.log('###', 'DELETE TASKS', req.body, req.params.taskId);
+  rest.delete('/api/v1/tasks/:taskId', (req, res, ctx) => {
     delete tasks[req.params.taskId];
     return res(ctx.status(204));
   }),
 
-  rest.patch('http://localhost/api/v1/tasks/:taskId', (req, res, ctx) => {
-    console.log('###', 'PATCH TASKS', req.body, req.params.taskId);
+  rest.patch('/api/v1/tasks/:taskId', (req, res, ctx) => {
     const task = tasks[req.params.taskId];
     task.completed = req.body.completed;
     return res(ctx.status(201), ctx.json(task));

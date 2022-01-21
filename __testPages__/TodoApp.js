@@ -1,31 +1,32 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { findAllByRole, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import {
+  findAllByRole,
+  waitFor,
+  waitForElementToBeRemoved,
+  screen,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import difference from 'lodash/difference';
 
 export default class TodoApp {
-  constructor(screen) {
-    this.screen = screen;
-  }
-
   get listInput() {
-    return this.screen.queryByRole('textbox', {
+    return screen.queryByRole('textbox', {
       name: /new list/i,
     });
   }
 
   get taskInput() {
-    return this.screen.queryByRole('textbox', {
+    return screen.queryByRole('textbox', {
       name: /new task/i,
     });
   }
 
   get listContainer() {
-    return this.screen.getByTestId('lists');
+    return screen.getByTestId('lists');
   }
 
   get tasksContainer() {
-    return this.screen.getByTestId('tasks');
+    return screen.getByTestId('tasks');
   }
 
   async getTasks() {
@@ -49,34 +50,53 @@ export default class TodoApp {
   }
 
   get tsksEmptyText() {
-    return this.screen.getByText('Tasks list is empty');
+    return screen.getByText('Tasks list is empty');
   }
 
   get addTaskBtn() {
-    return this.screen.getByRole('button', {
+    return screen.getByRole('button', {
       name: 'Add',
     });
   }
 
   get addListBtn() {
-    return this.screen.getByRole('button', {
+    return screen.getByRole('button', {
       name: /add list/i,
     });
   }
 
-  get deleteBtns() {
-    return this.screen.queryAllByRole('button', {
+  get deleteTaskBtns() {
+    return screen.queryAllByRole('button', {
       name: /remove/i,
     });
   }
 
+  get deleteListBtns() {
+    return screen.queryAllByRole('button', {
+      name: /remove list/i,
+    });
+  }
+
+  getErrorMesage(name) {
+    return screen.getByText(`${name} already exists`);
+  }
+
   async addTask(name) {
-    const delBtns = this.deleteBtns;
+    const delBtns = this.deleteTaskBtns;
     userEvent.type(this.taskInput, name);
     userEvent.click(this.addTaskBtn);
-    const item = await this.getTask(name);
-    const delBtn = difference(this.deleteBtns, delBtns)[0];
-    return this.getRemoveTaskFn(delBtn, item);
+    await this.getTask(name);
+    const delBtn = difference(this.deleteTaskBtns, delBtns)[0];
+    return this.getRemoveFn(delBtn);
+  }
+
+  async addList(name) {
+    const delBtns = this.deleteListBtns;
+    userEvent.type(this.listInput, name);
+    userEvent.click(this.addListBtn);
+    await this.getList(name);
+    const delBtn = difference(this.deleteListBtns, delBtns)[0];
+    return this.getRemoveFn(delBtn);
   }
 
   async completeTask(name) {
@@ -85,24 +105,22 @@ export default class TodoApp {
     return waitFor(() => task.checked);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  getRemoveTaskFn(delBtn, item) {
+  async pickList(name) {
+    const list = await this.getList(name);
+    userEvent.click(list);
+  }
+
+  getRemoveFn(delBtn) {
     const fn = () => {
       userEvent.click(delBtn);
-      return waitForElementToBeRemoved(item);
+      return waitForElementToBeRemoved(delBtn);
     };
     return fn;
   }
 
-  async addList(name) {
-    userEvent.type(this.listInput, name);
-    userEvent.click(this.addListBtn);
-    await this.getList(name);
-  }
-
   async getTask(name) {
     try {
-      const task = await this.screen.findByRole('checkbox', { name });
+      const task = await screen.findByRole('checkbox', { name });
       return task;
     } catch (e) {
       return null;
@@ -111,7 +129,7 @@ export default class TodoApp {
 
   async getList(name) {
     try {
-      const list = await this.screen.findAllByRole('button', { name });
+      const list = await screen.findByRole('button', { name });
       return list;
     } catch (e) {
       return null;

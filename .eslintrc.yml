@@ -1,5 +1,4 @@
 ---
-
 plugins:
   # https://github.com/jest-community/eslint-plugin-jest
   - jest
@@ -26,10 +25,11 @@ parserOptions:
 
 rules:
   no-console: 0
-  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname'] }]
   import/no-extraneous-dependencies: off
-  react/jsx-uses-vars: 
+  react/jsx-uses-vars:
     - error
   react/jsx-uses-react:
     - error
   no-plusplus: off
+  class-methods-use-this: off
