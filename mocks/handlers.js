@@ -7,7 +7,8 @@ const tasks = {};
 
 const handlers = [
   rest.post('/api/v1/lists', (req, res, ctx) => {
-    const list = { ...req.body, id: listNewId++, removable: true };
+    listNewId += 1;
+    const list = { ...req.body, id: listNewId, removable: true };
     lists[list.id] = list;
     return res(ctx.status(201), ctx.json(list));
   }),
@@ -26,10 +27,11 @@ const handlers = [
   }),
 
   rest.post('/api/v1/lists/:listId/tasks', (req, res, ctx) => {
+    taskNewId += 1;
     const task = {
       ...req.body,
       listId: Number(req.params.listId),
-      id: taskNewId++,
+      id: taskNewId,
       completed: false,
       touched: new Date().getTime(),
     };

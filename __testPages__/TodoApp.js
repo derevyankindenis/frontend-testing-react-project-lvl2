@@ -1,3 +1,5 @@
+/* eslint-disable testing-library/prefer-screen-queries */
+/* eslint-disable class-methods-use-this */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
   findAllByRole,
@@ -31,7 +33,6 @@ export default class TodoApp {
 
   async getTasks() {
     try {
-      // eslint-disable-next-line testing-library/prefer-screen-queries
       const items = await findAllByRole(this.tasksContainer, 'listitem');
       return items.map((item) => item.textContent);
     } catch (e) {
@@ -41,7 +42,6 @@ export default class TodoApp {
 
   async getLists() {
     try {
-      // eslint-disable-next-line testing-library/prefer-screen-queries
       const items = await findAllByRole(this.listContainer, 'listitem');
       return items.map((item) => item.textContent);
     } catch (e) {

@@ -31,5 +31,3 @@ rules:
     - error
   react/jsx-uses-react:
     - error
-  no-plusplus: off
-  class-methods-use-this: off
