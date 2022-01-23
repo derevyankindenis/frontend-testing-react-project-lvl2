@@ -32,3 +32,4 @@ rules:
   react/jsx-uses-react:
     - error
   testing-library/prefer-screen-queries: off
+  testing-library/no-render-in-setup: ["error", {"allowTestingFrameworkSetupHook": "beforeEach"}]

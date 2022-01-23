@@ -7,30 +7,32 @@ import server from '../mocks/server';
 
 const page = new TodoApp(screen);
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeEach(() => {
+  server.listen({ onUnhandledRequest: 'warn' });
+  server.resetHandlers();
+  render(<App />);
+});
+
+afterEach(() => {
+  server.close();
+});
 
 describe('Todo app', () => {
   test('there are inputs for tasks and lists', async () => {
-    render(<App />);
     expect(page.taskInput).toBeVisible();
     expect(page.listInput).toBeVisible();
   });
 
   test('there are no tasks before user add its', async () => {
-    render(<App />);
     const tasks = await page.getTasks();
     expect(tasks).toHaveLength(0);
   });
 
   test('there is placeholder for empty tasks', () => {
-    render(<App />);
     expect(page.tsksEmptyText).toBeVisible();
   });
 
   test('user can add tasks', async () => {
-    render(<App />);
     await page.addList('new list');
     await page.addTask('new task');
     await page.addTask('new task 2');
@@ -41,7 +43,6 @@ describe('Todo app', () => {
   });
 
   test('user can remove tasks', async () => {
-    render(<App />);
     await page.addList('new list');
     const deleteFirstTask = await page.addTask('first task');
     await page.addTask('second task');
@@ -53,7 +54,6 @@ describe('Todo app', () => {
   });
 
   test('user can complete tasks', async () => {
-    render(<App />);
     await page.addList('new list');
     await page.addTask('first task');
     await page.addTask('second task');
@@ -65,7 +65,6 @@ describe('Todo app', () => {
   });
 
   test('user can add lists', async () => {
-    render(<App />);
     await page.addList('new list');
     await page.addList('new list 2');
     const list = await page.getList('new list');
@@ -75,7 +74,6 @@ describe('Todo app', () => {
   });
 
   test('user can remove lists', async () => {
-    render(<App />);
     const deleteFirstList = await page.addList('first list');
     await page.addList('second list');
     await deleteFirstList();
@@ -86,7 +84,6 @@ describe('Todo app', () => {
   });
 
   test('each task in own list', async () => {
-    render(<App />);
     await page.addList('list 1');
     await page.addTask('task 1');
     await page.addTask('task 2');
@@ -107,7 +104,6 @@ describe('Todo app', () => {
   });
 
   test("removing tasks in list doesn't affect on other list", async () => {
-    render(<App />);
     await page.addList('list 1');
     await page.addList('list 2');
     await page.addTask('task 1');
@@ -121,7 +117,6 @@ describe('Todo app', () => {
   });
 
   test("deleted tasks aren't restored", async () => {
-    render(<App />);
     const removeList = await page.addList('list 1');
     await page.addTask('task 1');
     await removeList();
@@ -131,14 +126,12 @@ describe('Todo app', () => {
   });
 
   test("user can't create lists with same name", async () => {
-    render(<App />);
     await page.addList('list 1');
     await page.addList('list 1');
     expect(page.getErrorMesage('list 1')).toBeVisible();
   });
 
   test("user can't create task with same name", async () => {
-    render(<App />);
     await page.addList('list 1');
     await page.addTask('task 1');
     await page.addTask('task 1');
